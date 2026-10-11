@@ -11,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.maps.StreetViewPanoramaView
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.StreetViewPanoramaLocation
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -158,7 +159,7 @@ class QuestrStreetViewAndroidPlugin : FlutterPlugin, ActivityAware,
             try {
                 panoramaView.getStreetViewPanoramaAsync { panorama ->
                     if (disposed) return@getStreetViewPanoramaAsync
-                    panorama.setOnStreetViewPanoramaChangeListener { location ->
+                    panorama.setOnStreetViewPanoramaChangeListener { location: StreetViewPanoramaLocation? ->
                         if (disposed || resultDelivered) return@setOnStreetViewPanoramaChangeListener
                         report(if (location == null) "zero_results" else "available")
                     }
